@@ -1,7 +1,8 @@
 [submodule "modules/common"]
 	path = modules/common
-	url = https://github.com/aerospike/aerospike-common.git
+	url = git@github.com:kemparaju/aerospike-common.git
 	ignore = dirty
+	branch = ppc64le-support
 [submodule "modules/mod-lua"]
 	path = modules/mod-lua
 	url = https://github.com/aerospike/aerospike-mod-lua.git
@@ -20,8 +21,9 @@
 	ignore = dirty
 [submodule "modules/s2geometry"]
 	path = modules/s2geometry
-	url = https://github.com/aerospike/s2geometry.git
+	url = git@github.com:kemparaju/s2geometry.git
 	ignore = dirty
+	branch = ppc64le-support
 [submodule "modules/libbacktrace"]
 	path = modules/libbacktrace
 	url = https://github.com/aerospike/libbacktrace.git
