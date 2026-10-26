@@ -359,6 +359,16 @@ log_stack_trace(void* ctx)
 	}
 
 	sprintf(p, "x31 %016lx pc %016lx", sp, pc);
+#elif defined __powerpc64__
+	uint64_t* gregs = (uint64_t*)&mc->gp_regs[0];
+
+	char* p = reg_str;
+
+	for (uint32_t i = 0; i < 32; i++) {
+		p += sprintf(p, "r%u %016lx ", i, gregs[i]);
+	}
+
+	sprintf(p, "nip %016lx", gregs[32]);
 #endif
 
 	cf_warning(AS_AS, "stacktrace: registers: %s", reg_str);
@@ -419,6 +429,21 @@ log_memory(void* ctx)
 	}
 
 	values[31] = sp;
+
+	uint32_t n_regs = 32;
+#elif defined __powerpc64__
+	uint64_t* gregs = (uint64_t*)&mc->gp_regs[0];
+
+	static const char* names[32] = { "r0", "r1", "r2", "r3", "r4", "r5", "r6",
+		"r7", "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15", "r16",
+		"r17", "r18", "r19", "r20", "r21", "r22", "r23", "r24", "r25", "r26",
+		"r27", "r28", "r29", "r30", "r31" };
+
+	uint64_t values[32];
+
+	for (uint32_t i = 0; i < 32; i++) {
+		values[i] = gregs[i];
+	}
 
 	uint32_t n_regs = 32;
 #endif
